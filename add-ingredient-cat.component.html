@@ -1,0 +1,15 @@
+
+<div class="center">
+    <h1>Add Ingredients</h1>
+    <form [formGroup]="ingredientCatForm" (ngSubmit)="onIngredientCatSubmit(ingredientCatForm.value)"
+    (keydown.enter)=" $event.preventDefault()">
+        <div>
+            
+            <label for="name" class="label">
+                Name of Category:
+            </label>
+            <input type="text" formControlName="name" id="name" />
+        </div>
+        <button class="button" type="submit">Submit</button>
+    </form>
+</div>

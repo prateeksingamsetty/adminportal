@@ -1,3 +1,4 @@
+import { ingredientCat } from './../models/ingredientCat';
 import { Ingredient } from '../models/Ingredient';
 import { Injectable } from '@angular/core';
 import { Channel } from '../models/Channel';
@@ -5,6 +6,7 @@ import { Recipe } from '../models/Recipe';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { retry } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root',
@@ -37,6 +39,7 @@ export class RecipeDataService {
 
     }
     ).subscribe(data => {
+      //console.log("hi babeee")
       console.log(data);
     });
   }
@@ -44,8 +47,21 @@ export class RecipeDataService {
   addIngredient(ingredient){
     var URL = "http://localhost:3000/recipes/ingredients/new";
     console.log("sending this  " + ingredient);
-    var response = this.http.post<Ingredient>(URL,
+    var response = this.http.post<ingredientCat>(URL,
       ingredient, {
+        observe: 'body',
+        withCredentials: true,
+        headers: new HttpHeaders().append('Content-Type', 'application/json')
+      }
+      ).subscribe(data => {
+        console.log(data);
+      });
+  }
+
+  addIngredientCat(ingredientCat){
+    var URL = "http://localhost:3000/recipes/ingredients/category/new";
+    var response = this.http.post<Ingredient>(URL,
+      ingredientCat, {
         observe: 'body',
         withCredentials: true,
         headers: new HttpHeaders().append('Content-Type', 'application/json')

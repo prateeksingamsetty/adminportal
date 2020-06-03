@@ -4,6 +4,7 @@ var router = express.Router();
 var Channel = require("../Models/channel");
 var Recipe = require('../Models/recipe');
 var Ingredient = require('../Models/Ingredient');
+var Category = require('../Models/Category');
 
 router.use(BodyParser.json());
 router.use(BodyParser.urlencoded({ extended: true }));
@@ -32,7 +33,7 @@ router.post("/new", isLoggedIn, async (request, response) => {
 });
 
 router.post("/ingredients/new", isLoggedIn, async (request, response) => {
-    var name; var image; var density;
+    //var name; var image; var density;
     console.log("ela unav",request.body.name);
     try {
         var ingredient = new Ingredient({
@@ -40,7 +41,24 @@ router.post("/ingredients/new", isLoggedIn, async (request, response) => {
             image: request.body.image,
             density: request.body.density,
         })
+
         var result = await ingredient.save();
+    }
+    catch (error) {
+        console.log("hiiiii",error);
+        response.status(500).send(error);
+    }
+});
+
+router.post("/ingredients/category/new", isLoggedIn, async (request, response) => {
+    //var name; var image; var density;
+    console.log("ela unav",request.body.name);
+    try {
+        var ingredientCat = new Category({
+            name: request.body.name
+        })
+        
+        var result = await ingredientCat.save();
     }
     catch (error) {
         console.log("hiiiii",error);
